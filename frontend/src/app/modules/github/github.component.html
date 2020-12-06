@@ -1,0 +1,94 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header">Github</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <app-input
+            label="User"
+            placeholder="User"
+            [(ngModel)]="name"
+            ngDefaultControl
+          ></app-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+          <app-button
+            type="submit"
+            icon="fas fa-search"
+            label="Buscar"
+            class="outline-primary"
+            (click)="search()"
+          ></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!tableLock" class="card mt-3">
+    <div class="row">
+      <div class="col-12">
+        <app-table
+          [cols]="userCols"
+          [values]="users"
+          [hasActions]="true"
+          [actions]="actions"
+          [loading]="loadingUser"
+        >
+          <ng-template #actions let-rowData="rowData">
+            <div class="d-flex justify-content-between">
+              <app-button
+                icon="fas fa-book"
+                class="outline-primary btn-sm"
+                type="button"
+                tooltip="Repos"
+                (click)="searchRepos(rowData)"
+                data-toggle="modal"
+                data-target="#repos"
+              ></app-button>
+
+              <app-button
+                icon="far fa-star"
+                class="outline-primary btn-sm"
+                type="button"
+                tooltip="Starred"
+                (click)="searchStarred(rowData)"
+                data-toggle="modal"
+                data-target="#starred"
+              ></app-button>
+
+              <app-button
+                icon="fas fa-user"
+                class="outline-primary btn-sm"
+                type="button"
+                tooltip="Details"
+                [routerLink]="['/user-details']"
+                [state]="rowData"
+              ></app-button>
+            </div>
+          </ng-template>
+        </app-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal modalRef="repos" size="xl" title="Repositórios" [body]="reposBody">
+  <ng-template #reposBody>
+    <app-table [cols]="reposCols" [values]="repos" [loading]="loadingRepos">
+    </app-table>
+  </ng-template>
+</app-modal>
+
+<app-modal modalRef="starred" size="xl" title="Favoritos" [body]="starredBody">
+  <ng-template #starredBody>
+    <app-table
+      [cols]="starredCols"
+      [values]="starred"
+      [loading]="loadingStarred"
+    >
+    </app-table>
+  </ng-template>
+</app-modal>
