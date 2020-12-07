@@ -24,9 +24,7 @@ export class GithubComponent implements OnInit {
   public loadingRepos = false;
   public loadingStarred = false;
 
-  constructor(
-    private githubService: GithubService
-    ) {}
+  constructor(private githubService: GithubService) {}
 
   ngOnInit(): void {
     this.buildCols();
@@ -38,10 +36,15 @@ export class GithubComponent implements OnInit {
     this.githubService
       .getUser(this.name)
       .pipe(take(1))
-      .subscribe((response) => {
-        this.users = [response];
-        this.loadingUser = false;
-      });
+      .subscribe(
+        (response) => {
+          this.users = [response];
+          this.loadingUser = false;
+        },
+        (error) => {
+          this.loadingUser = false;
+        }
+      );
   }
 
   public searchRepos(input: any) {
@@ -49,10 +52,15 @@ export class GithubComponent implements OnInit {
     this.githubService
       .getUserRepos(input.login)
       .pipe(take(1))
-      .subscribe((response: any) => {
-        this.repos = response;
-        this.loadingRepos = false;
-      });
+      .subscribe(
+        (response: any) => {
+          this.repos = response;
+          this.loadingRepos = false;
+        },
+        (error) => {
+          this.loadingUser = false;
+        }
+      );
   }
 
   public searchStarred(input: any) {

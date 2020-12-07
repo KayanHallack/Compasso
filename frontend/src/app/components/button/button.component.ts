@@ -23,6 +23,9 @@ export class ButtonComponent implements OnInit {
   public tooltip!: string;
 
   @Input()
+  public disabled = false;
+
+  @Input()
   public loading = false;
 
   constructor() {}

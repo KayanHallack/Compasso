@@ -1,4 +1,4 @@
-<button type="{{type}}" class="btn btn-{{class}}" style="min-width: 40px;" [ngbTooltip]="tooltip">
+<button type="{{type}}" class="btn btn-{{class}}" style="min-width: 40px;" [disabled]="disabled" [ngbTooltip]="tooltip">
     <i class="{{icon}}" *ngIf="icon && !loading"></i>
     <span *ngIf="label && !loading" [ngClass]="{'ml-2': icon}">{{label}}</span>
 </button>
