@@ -58,7 +58,7 @@ export class GithubComponent implements OnInit {
           this.loadingRepos = false;
         },
         (error) => {
-          this.loadingUser = false;
+          this.loadingRepos = false;
         }
       );
   }
@@ -70,6 +70,9 @@ export class GithubComponent implements OnInit {
       .pipe(take(1))
       .subscribe((response: any) => {
         this.starred = response;
+        this.loadingStarred = false;
+      },
+      (error) => {
         this.loadingStarred = false;
       });
   }
